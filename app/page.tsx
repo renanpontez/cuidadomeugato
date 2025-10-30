@@ -7,7 +7,7 @@ const ALLOWED_PEOPLE = [
   'Loira',
   'Elma',
   'Titeco',
-  'Vitória',
+  'Victória',
   'Dessinha',
   'Renan',
 ]
@@ -65,7 +65,6 @@ FLUXO SALA
     })
   }, [])
 
-  const handlePrint = useCallback(() => window.print(), [])
   const [menuOpen, setMenuOpen] = useState(false)
   const [scheduleOpen, setScheduleOpen] = useState(false)
 
@@ -83,6 +82,22 @@ FLUXO SALA
         return 'Valeu por cuidar dos nossos gatimm <3'
     }
   }, [])
+
+  // Lock body scroll when schedule modal is open and add ESC to close
+  useEffect(() => {
+    if (scheduleOpen) {
+      const original = document.body.style.overflow
+      document.body.style.overflow = 'hidden'
+      const onKey = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') setScheduleOpen(false)
+      }
+      window.addEventListener('keydown', onKey)
+      return () => {
+        document.body.style.overflow = original
+        window.removeEventListener('keydown', onKey)
+      }
+    }
+  }, [scheduleOpen])
 
   return (
     <>
@@ -255,9 +270,9 @@ FLUXO SALA
             </details>
           )}
 
-          {(visitor === 'Vitória') && (
+          {(visitor === 'Victória') && (
             <details className="mb-2 border border-line rounded-xl bg-white p-3">
-              <summary className="cursor-pointer font-bold text-ink">Vitória — Domingo (tarde, a confirmar)</summary>
+              <summary className="cursor-pointer font-bold text-ink">Victória — Domingo (tarde, a confirmar)</summary>
               <ol className="ml-5 mt-2 list-decimal space-y-1">
                 <li>Visita extra: água, comida, portas; pode brincar com o filhote seguindo o fluxo.</li>
                 <li><b>Ao sair:</b> varanda fechada.</li>
@@ -275,6 +290,8 @@ FLUXO SALA
           )}
         </section>
 
+
+
         <section id="regras" className="my-7">
           <div className="card alert">
             <h2 className="mb-2 text-xl font-semibold">⚠️ Regras de ouro (ATUALIZADO)</h2>
@@ -283,7 +300,22 @@ FLUXO SALA
               <li><b>Varanda sempre fechada ao sair do apartamento</b>.</li>
               <li><b>Filhote só pode brincar na sala se a Smoke estiver no quarto</b> (porta do quarto fechada).</li>
               <li><b>Banheiro social travado aberto</b> para a Smoke usar a caixa sem risco de a porta bater.</li>
-              <li><b>Porta do escritório</b>: levantar o trinco, empurrar o <i>alisar</i> e puxar a porta até travar.</li>
+              <li>
+                <b>Porta do escritório</b>
+                <span className="relative ml-1 inline-flex items-center group align-middle">
+                  <span
+                    className="inline-flex h-4 w-4 items-center justify-center rounded-full border border-line bg-white text-[10px] text-ink"
+                    aria-label="Mais informações"
+                    role="img"
+                  >
+                    i
+                  </span>
+                  <span className="absolute left-1/2 top-full z-50 hidden -translate-x-1/2 translate-y-2 whitespace-pre-line rounded-md border border-line bg-white px-3 py-2 text-sm text-ink shadow-card group-hover:block">
+                    Gambiarra de leve porque o vento bateu demais a porta e quebrou o alisar. Com um pouco de esforço e levantando pra cima ela fecha hehe :)
+                  </span>
+                </span>
+                : levantar o trinco, empurrar o <i>alisar</i> e puxar a porta até travar.
+              </li>
             </ul>
           </div>
         </section>
@@ -334,7 +366,7 @@ FLUXO SALA
               <li>Sáb 02/11 manhã → <b>Loira</b> limpeza com protocolo (ver instruções por pessoa).</li>
               <li>Sáb 02/11 tarde → Elma reforça água, comida e portas.</li>
               <li>Dom 03/11 manhã → Titeco visita; checagem geral.</li>
-              <li>Dom 03/11 tarde → Vitória (a confirmar) visita extra.</li>
+              <li>Dom 03/11 tarde → Victória (a confirmar) visita extra.</li>
               <li>Dom 03/11 21h → Andressa assume rotina.</li>
               <li>Ter 05/11 00:00 → Retorno do Renan.</li>
             </ul>
@@ -358,32 +390,6 @@ FLUXO SALA
             </ol>
           </div>
           <div className="card">
-            <h3 className="mb-2 text-lg font-semibold">🧼 Limpeza & Segurança</h3>
-            <ul className="ml-5 list-disc">
-              <li>Caixa do filhote: <b>escritório</b>. Caixa da Smoke: <b>banheiro social</b>.</li>
-              <li>Banheiro social: <b>porta travada aberta</b>.</li>
-              <li>Depois de limpar o escritório: <b>devolver filhote</b> e <b>fechar bem</b> (trinco + alisar).</li>
-            </ul>
-          </div>
-          <div className="card">
-            <h3 className="mb-2 text-lg font-semibold">🚑 Sinais de alerta</h3>
-            <ul className="ml-5 list-disc">
-              <li>Não comer, vômito, diarreia, apatia.</li>
-              <li>Briga/arranhões ou tentativa de fuga.</li>
-              <li><b>Acionar</b> Renan/Andressa e, se preciso, levar ao veterinário.</li>
-            </ul>
-          </div>
-          <div className="card">
-            <h3 className="mb-2 text-lg font-semibold">🌤️ Quando abrir a varanda?</h3>
-            <ul className="ml-5 list-disc">
-              <li><span className="ok">Pode abrir</span> quando o filhote estiver <b>trancado</b> no escritório.</li>
-              <li><span className="warn">Feche sempre</span> com o filhote solto <u>ou</u> ao sair do apartamento.</li>
-            </ul>
-          </div>
-        </section>
-
-        <section id="limpeza" className="my-7 grid gap-4 md:grid-cols-2">
-          <div className="card">
             <h2 className="mb-2 text-xl font-semibold">🧼 Limpeza & Segurança</h2>
             <ul className="ml-5 list-disc">
               <li>Caixa do filhote: <b>escritório</b>. Caixa da Smoke: <b>banheiro social</b>.</li>
@@ -391,6 +397,18 @@ FLUXO SALA
               <li>Depois de limpar o escritório: <b>devolver filhote</b> e <b>fechar bem</b> (trinco + alisar).</li>
             </ul>
           </div>
+
+        </section>
+
+        <section id="limpeza" className="my-7 grid gap-4 md:grid-cols-2">
+          <div className="card">
+            <h3 className="mb-2 text-lg font-semibold">🌤️ Quando abrir a varanda?</h3>
+            <ul className="ml-5 list-disc">
+              <li><span className="ok">Pode abrir</span> quando o filhote estiver <b>trancado</b> no escritório.</li>
+              <li><span className="warn">Feche sempre</span> com o filhote solto <u>ou</u> ao sair do apartamento.</li>
+            </ul>
+          </div>
+
           <div className="card">
             <h3 className="mb-2 text-lg font-semibold">🚑 Sinais de alerta</h3>
             <ul className="ml-5 list-disc">
@@ -403,9 +421,9 @@ FLUXO SALA
 
         {/* Cronograma vira modal acessado por botão flutuante */}
         {scheduleOpen && (
-          <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/40 p-4" onClick={() => setScheduleOpen(false)}>
-            <div className="w-full max-w-3xl rounded-2xl border border-line bg-white p-4 shadow-card" onClick={e => e.stopPropagation()}>
-              <div className="flex items-center justify-between">
+          <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/40 p-4 overflow-y-auto overscroll-contain" onClick={() => setScheduleOpen(false)}>
+            <div className="w-full max-w-3xl rounded-2xl border border-line bg-white p-4 shadow-card max-h-[85vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
+              <div className="sticky top-0 z-10 flex items-center justify-between bg-white/95 pb-2">
                 <h2 className="mb-2 text-xl font-semibold">📅 Cronograma de cuidadores</h2>
                 <button className="btn" onClick={() => setScheduleOpen(false)}>Fechar</button>
               </div>
@@ -417,7 +435,7 @@ FLUXO SALA
                   <tr><td>02/11 (sáb)</td><td>Loira</td><td>08h–13h</td><td>Limpeza com protocolo (ver seção “Instruções por Pessoa”).</td></tr>
                   <tr><td>02/11 (sáb)</td><td>Elma</td><td>16h–19h</td><td>Água/comida; brincar com filhote; conferir portas/varanda; <b>fechar varanda ao sair</b>.</td></tr>
                   <tr><td>03/11 (dom)</td><td>Titeco</td><td>10h–12h</td><td>Checar caixas; alimentar; brincar supervisionado; <b>fechar varanda ao sair</b>.</td></tr>
-                  <tr><td>03/11 (dom)</td><td>Vitória (a confirmar)</td><td>Tarde</td><td>Visita extra; rotinas e portas; <b>fechar varanda ao sair</b>.</td></tr>
+                  <tr><td>03/11 (dom)</td><td>Victória (a confirmar)</td><td>Tarde</td><td>Visita extra; rotinas e portas; <b>fechar varanda ao sair</b>.</td></tr>
                   <tr><td>03/11 (dom)</td><td>Andressa</td><td>Chega 21h</td><td>Assume rotina até o retorno.</td></tr>
                   <tr><td>05/11 (ter)</td><td>Renan</td><td>00:00</td><td>Retoma rotina normal.</td></tr>
                 </tbody>
@@ -451,6 +469,47 @@ FLUXO SALA
               <li>Reabrir quarto/varanda se ainda ficar no apto.</li>
             </ul>
             <button className="btn mt-2" onClick={() => copyList('during-visit')}>📋 Copiar</button>
+          </div>
+        </section>
+
+        {/* Mídia: vídeos e fotos explicativas (abaixo dos checklists) */}
+        <section id="midia" className="my-7">
+          <h2 className="mb-3 text-xl font-semibold">🎬 Mídia</h2>
+          <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 [column-fill:_balance]">
+            <div className="mb-4 break-inside-avoid ">
+              <div className="card min-h-[500px]">
+                <h3 className="mb-2 text-lg font-semibold">🎥 Como fechar a porta por dentro</h3>
+                <div className="aspect-video w-full overflow-hidden rounded-xl border border-line bg-black min-h-[400px]">
+                  <video className="h-full w-full " src="/assets/porta.webm" controls playsInline preload="metadata" />
+                </div>
+                <p className="mt-2 text-sm text-muted">Dica: é só levantar um pouquinho a porta e ela fecha 😉</p>
+              </div>
+            </div>
+
+            <div className="mb-4 break-inside-avoid">
+              <div className="card">
+                <h3 className="mb-2 text-lg font-semibold">🍽️ Comidinha — dois pratinhos</h3>
+                <div className="overflow-hidden rounded-xl border border-line bg-white">
+                  <img src="/assets/comedouro.webp" alt="Dois pratinhos: automático e o de amolecer com água quente" className="h-auto w-full" />
+                </div>
+                <p className="mt-2 text-sm text-muted">
+                  Esquerda: pratinho da comida automática. Direita: pratinho usado pra amolecer a ração com água quente.
+                </p>
+              </div>
+            </div>
+
+            <div className="mb-4 break-inside-avoid">
+              <div className="card">
+                <h3 className="mb-2 text-lg font-semibold">🖼️ Caixas e cordinha</h3>
+                <div className="overflow-hidden rounded-xl border border-line bg-white">
+                  <img src="/assets/caixas_porta.webp" alt="Caixas na porta e cordinha de segurança" className="h-auto w-full" />
+                </div>
+                <p className="mt-2 text-sm text-muted">
+                  Essas caixas impedem o filhote de sair sem precisar fechar as portas do banheiro (mantém o vento circulando).
+                  A cordinha evita que o vento feche a porta do banheiro — gambis inteligente!
+                </p>
+              </div>
+            </div>
           </div>
         </section>
 
