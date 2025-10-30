@@ -184,16 +184,15 @@ FLUXO SALA
                   className="absolute z-50 mt-2 w-72 rounded-xl border border-line bg-white shadow-card"
                 >
                   <div className="flex flex-col p-2">
+                    <a className="toc px-3 py-2 rounded-lg hover:bg-gray-50" href="#pessoas" onClick={() => setMenuOpen(false)}>Instruções rápidas</a>
                     <a className="toc px-3 py-2 rounded-lg hover:bg-gray-50" href="#regras" onClick={() => setMenuOpen(false)}>Regras</a>
-                    <a className="toc px-3 py-2 rounded-lg hover:bg-gray-50" href="#fluxo-sala" onClick={() => setMenuOpen(false)}>Fluxo: soltar filhote na sala</a>
-                    <a className="toc px-3 py-2 rounded-lg hover:bg-gray-50" href="#ambientes" onClick={() => setMenuOpen(false)}>Ambientes</a>
-                    <a className="toc px-3 py-2 rounded-lg hover:bg-gray-50" href="#smoke" onClick={() => setMenuOpen(false)}>Smoke</a>
-                    <a className="toc px-3 py-2 rounded-lg hover:bg-gray-50" href="#filhote" onClick={() => setMenuOpen(false)}>Filhote</a>
-                    <a className="toc px-3 py-2 rounded-lg hover:bg-gray-50" href="#alimentacao" onClick={() => setMenuOpen(false)}>Alimentação</a>
-                    <a className="toc px-3 py-2 rounded-lg hover:bg-gray-50" href="#limpeza" onClick={() => setMenuOpen(false)}>Limpeza & Segurança</a>
-                    <a className="toc px-3 py-2 rounded-lg hover:bg-gray-50" href="#cronograma" onClick={() => setMenuOpen(false)}>Cronograma</a>
-                    <a className="toc px-3 py-2 rounded-lg hover:bg-gray-50" href="#pessoas" onClick={() => setMenuOpen(false)}>Instruções por Pessoa</a>
+                    <a className="toc px-3 py-2 rounded-lg hover:bg-gray-50" href="#fluxo-sala" onClick={() => setMenuOpen(false)}>Fluxo seguro</a>
+                    <a className="toc px-3 py-2 rounded-lg hover:bg-gray-50" href="#ambientes" onClick={() => setMenuOpen(false)}>Organização do apto</a>
+                    <a className="toc px-3 py-2 rounded-lg hover:bg-gray-50" href="#dados-importantes" onClick={() => setMenuOpen(false)}>Dados importantes</a>
+                    <a className="toc px-3 py-2 rounded-lg hover:bg-gray-50" href="#midia" onClick={() => setMenuOpen(false)}>Mídia</a>
+                    <a className="toc px-3 py-2 rounded-lg hover:bg-gray-50" href="#gatim-info" onClick={() => setMenuOpen(false)}>Informações dos Gatim</a>
                     <a className="toc px-3 py-2 rounded-lg hover:bg-gray-50" href="#checklists" onClick={() => setMenuOpen(false)}>Checklists WhatsApp</a>
+                    <button className="toc text-left px-3 py-2 rounded-lg hover:bg-gray-50" onClick={() => { setScheduleOpen(true); setMenuOpen(false) }}>Abrir cronograma</button>
                   </div>
                 </div>
               )}
