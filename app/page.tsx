@@ -271,7 +271,7 @@ FLUXO SALA
 
           {(visitor === 'Victória') && (
             <details className="mb-2 border border-line rounded-xl bg-white p-3">
-              <summary className="cursor-pointer font-bold text-ink">Victória — Domingo (tarde, a confirmar)</summary>
+              <summary className="cursor-pointer font-bold text-ink">Victória — Domingo (tarde)</summary>
               <ol className="ml-5 mt-2 list-decimal space-y-1">
                 <li>Visita extra: água, comida, portas; pode brincar com o filhote seguindo o fluxo.</li>
                 <li><b>Ao sair:</b> varanda fechada.</li>
@@ -343,18 +343,20 @@ FLUXO SALA
         <section id="ambientes" className="my-7">
           <div className="card">
             <h2 className="mb-2 text-xl font-semibold">🏠 Organização do apartamento</h2>
-            <table className="table">
-              <thead>
-                <tr><th>Cômodo</th><th>Uso</th><th>Gato</th><th>Observações</th></tr>
-              </thead>
-              <tbody>
-                <tr><td>Escritório</td><td>Ambiente principal</td><td>🐾 Filhote</td><td>Fica a maior parte do tempo. Pode ventilar quando alguém estiver dentro. Fechar ao sair.</td></tr>
-                <tr><td>Sala</td><td>Brincadeiras</td><td>🐾 Filhote / 🐈‍⬛ Smoke</td><td>Filhote só na sala com a Smoke no quarto e varanda fechada.</td></tr>
-                <tr><td>Quarto</td><td>Refúgio</td><td>🐈‍⬛ Smoke</td><td>Usado para conter a Smoke durante as brincadeiras do filhote.</td></tr>
-                <tr><td>Banheiro social</td><td>Caixa de areia</td><td>🐈‍⬛ Smoke</td><td>Porta travada aberta (anti-vento). Outra porta pode ficar aberta e bloqueada com caixa.</td></tr>
-                <tr><td>Varanda</td><td>Passeio</td><td>🐈‍⬛ Smoke</td><td>Pode abrir com filhote trancado. <b>Sempre fechar ao sair do apto.</b></td></tr>
-              </tbody>
-            </table>
+            <div className="overflow-x-auto">
+              <table className="table min-w-[720px]">
+                <thead>
+                  <tr><th>Cômodo</th><th>Uso</th><th>Gato</th><th>Observações</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Escritório</td><td>Ambiente principal</td><td>🐾 Filhote</td><td>Fica a maior parte do tempo. Pode ventilar quando alguém estiver dentro. Fechar ao sair.</td></tr>
+                  <tr><td>Sala</td><td>Brincadeiras</td><td>🐾 Filhote / 🐈‍⬛ Smoke</td><td>Filhote só na sala com a Smoke no quarto e varanda fechada.</td></tr>
+                  <tr><td>Quarto</td><td>Refúgio</td><td>🐈‍⬛ Smoke</td><td>Usado para conter a Smoke durante as brincadeiras do filhote.</td></tr>
+                  <tr><td>Banheiro social</td><td>Caixa de areia</td><td>🐈‍⬛ Smoke</td><td>Porta travada aberta (anti-vento). Outra porta pode ficar aberta e bloqueada com caixa.</td></tr>
+                  <tr><td>Varanda</td><td>Passeio</td><td>🐈‍⬛ Smoke</td><td>Pode abrir com filhote trancado. <b>Sempre fechar ao sair do apto.</b></td></tr>
+                </tbody>
+              </table>
+            </div>
           </div>
 
           <div className="card mt-4">
@@ -365,7 +367,7 @@ FLUXO SALA
               <li>Sáb 02/11 manhã → <b>Loira</b> limpeza com protocolo (ver instruções por pessoa).</li>
               <li>Sáb 02/11 tarde → Elma reforça água, comida e portas.</li>
               <li>Dom 03/11 manhã → Titeco visita; checagem geral.</li>
-              <li>Dom 03/11 tarde → Victória (a confirmar) visita extra.</li>
+              <li>Dom 03/11 tarde → Victória visita extra.</li>
               <li>Dom 03/11 21h → Andressa assume rotina.</li>
               <li>Ter 05/11 00:00 → Retorno do Renan.</li>
             </ul>
@@ -434,7 +436,7 @@ FLUXO SALA
                   <tr><td>02/11 (sáb)</td><td>Loira</td><td>08h–13h</td><td>Limpeza com protocolo (ver seção “Instruções por Pessoa”).</td></tr>
                   <tr><td>02/11 (sáb)</td><td>Elma</td><td>16h–19h</td><td>Água/comida; brincar com filhote; conferir portas/varanda; <b>fechar varanda ao sair</b>.</td></tr>
                   <tr><td>03/11 (dom)</td><td>Titeco</td><td>10h–12h</td><td>Checar caixas; alimentar; brincar supervisionado; <b>fechar varanda ao sair</b>.</td></tr>
-                  <tr><td>03/11 (dom)</td><td>Victória (a confirmar)</td><td>Tarde</td><td>Visita extra; rotinas e portas; <b>fechar varanda ao sair</b>.</td></tr>
+                  <tr><td>03/11 (dom)</td><td>Victória</td><td>Tarde</td><td>Visita extra; rotinas e portas; <b>fechar varanda ao sair</b>.</td></tr>
                   <tr><td>03/11 (dom)</td><td>Andressa</td><td>Chega 21h</td><td>Assume rotina até o retorno.</td></tr>
                   <tr><td>05/11 (ter)</td><td>Renan</td><td>00:00</td><td>Retoma rotina normal.</td></tr>
                 </tbody>
