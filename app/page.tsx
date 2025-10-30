@@ -8,7 +8,7 @@ const ALLOWED_PEOPLE = [
   'Elma',
   'Titeco',
   'Vitória',
-  'Andressa',
+  'Dessinha',
   'Renan',
 ]
 
@@ -77,6 +77,8 @@ FLUXO SALA
         return 'Ei man, num tem eu né?! Valeu bicho fei! Leva o Pitoco pra casa não mah pfv!'
       case 'Felipe':
         return 'Eiiii meu dev, vc é bom viunnn. Valeu por me apresentar o bichim e cuidar dele. É noiss!'
+      case 'Dessinha':
+        return 'Te amuuuu! <3'
       default:
         return 'Valeu por cuidar dos nossos gatimm <3'
     }
@@ -138,25 +140,20 @@ FLUXO SALA
           </div>
         </div>
       )}
-      <header className="sticky top-0 z-50 border-b border-line bg-[rgba(250,250,250,.95)] backdrop-blur-md">
-        <div className="flex items-center justify-center gap-4 px-6 py-3.5">
+      <header className="sticky top-0 z-50  bg-[rgba(250,250,250,.95)] backdrop-blur-md">
+        <div className="flex items-center justify-center gap-4 px-6 py-3.5 ">
           <div>
             <h1 className="m-0 text-[clamp(1.35rem,2.2vw,1.9rem)] mx-auto text-center font-semibold">Guia de Cuidados – Smoke 🐈‍⬛ & Picoto 🐾</h1>
             <p className="text-center">Valeu por cuidarem dos gatinhos! 🧡</p>
-            <div className="mt-2 flex flex-wrap gap-2">
+            <div className="mt-2 flex flex-wrap gap-2 w-full">
               <span className="badge">Período: 31/10 (qui) – 05/11 (ter) 00:00</span>
               <span className="badge">Objetivo: segurança + rotina + <b>sem contato</b></span>
-              {visitor && (
-                <span className="badge">Visitante: <b>{visitor}</b></span>
-              )}
-              {visitor && (
-                <button className="btn" onClick={() => { setModalOpen(true); setQuery(''); setDebouncedQuery('') }}>Trocar</button>
-              )}
             </div>
           </div>
-        </div>
-        <div className="mx-auto max-w-[1100px] px-6">
-          <div className="relative my-3">
+        </div >
+        <div className="mx-auto max-w-[1100px] px-6 border-t border-solid border-line border-b
+          pt-3 pb-3">
+          <div className="relative my-3 flex flex-row justify-between items-center ">
             <div className="inline-block">
               <button
                 className="btn"
@@ -186,9 +183,18 @@ FLUXO SALA
                 </div>
               )}
             </div>
+            <div className="flex flex-row gap-2">
+              {visitor && (
+                <span className="badge">Visitante: <b>{visitor}</b></span>
+              )}
+              {visitor && (
+                <button className="btn" onClick={() => { setModalOpen(true); setQuery(''); setDebouncedQuery('') }}>Trocar</button>
+              )}
+            </div>
+
           </div>
         </div>
-      </header>
+      </header >
 
       <main className={`mx-auto max-w-[1100px] px-6 transition-opacity duration-500 ${showGreeting ? 'opacity-50' : 'opacity-100'}`}>
         {/* Instruções por pessoa no topo, filtradas pelo visitante */}
@@ -335,26 +341,9 @@ FLUXO SALA
           </div>
         </section>
 
-        {/* Informações gerais dos gatinhos */}
-        <section id="gatim-info" className="my-7 grid gap-4 md:grid-cols-2">
-          <div className="card">
-            <h2 className="mb-2 text-xl font-semibold">🐈‍⬛ Smoke <span className="pill smoke">independente</span></h2>
-            <ul className="ml-5 list-disc">
-              <li>Carinho, escova e <b>bolinha laranja</b> na varanda.</li>
-              <li>Alimentação <b>automática</b>; pode ganhar 1 sachê de mimo.</li>
-              <li>Água fresca sempre.</li>
-              <li>Se rosnar, dê espaço — sem forçar contato com o filhote.</li>
-            </ul>
-          </div>
-          <div className="card">
-            <h2 className="mb-2 text-xl font-semibold">🐾 Filhote <span className="pill kitten">transição alimentar</span></h2>
-            <ul className="ml-5 list-disc">
-              <li>Fica no <b>escritório</b> quando sem supervisão.</li>
-              <li>Pode brincar na sala com a Smoke no <b>quarto</b> e <b>varanda fechada</b>.</li>
-              <li>Usa caixa de areia; se “esquecer”, mostrar o caminho.</li>
-            </ul>
-          </div>
-        </section>
+        <hr />
+
+
 
         {/* Dados importantes: alimentação, limpeza, sinais, varanda */}
         <section id="dados-importantes" className="my-7 grid gap-4 md:grid-cols-2">
@@ -437,6 +426,7 @@ FLUXO SALA
           </div>
         )}
 
+        <hr />
         {/* Instruções já movidas para o topo */}
 
         <section id="checklists" className="my-7 grid gap-4 md:grid-cols-2">
@@ -461,6 +451,28 @@ FLUXO SALA
               <li>Reabrir quarto/varanda se ainda ficar no apto.</li>
             </ul>
             <button className="btn mt-2" onClick={() => copyList('during-visit')}>📋 Copiar</button>
+          </div>
+        </section>
+
+        <hr />
+        {/* Informações gerais dos gatinhos */}
+        <section id="gatim-info" className="my-7 grid gap-4 md:grid-cols-2">
+          <div className="card">
+            <h2 className="mb-2 text-xl font-semibold">🐈‍⬛ Smoke <span className="pill smoke">independente</span></h2>
+            <ul className="ml-5 list-disc">
+              <li>Carinho, escova e <b>bolinha laranja</b> na varanda.</li>
+              <li>Alimentação <b>automática</b>; pode ganhar 1 sachê de mimo.</li>
+              <li>Água fresca sempre.</li>
+              <li>Se rosnar, dê espaço — sem forçar contato com o filhote.</li>
+            </ul>
+          </div>
+          <div className="card">
+            <h2 className="mb-2 text-xl font-semibold">🐾 Filhote <span className="pill kitten">transição alimentar</span></h2>
+            <ul className="ml-5 list-disc">
+              <li>Fica no <b>escritório</b> quando sem supervisão.</li>
+              <li>Pode brincar na sala com a Smoke no <b>quarto</b> e <b>varanda fechada</b>.</li>
+              <li>Usa caixa de areia; se “esquecer”, mostrar o caminho.</li>
+            </ul>
           </div>
         </section>
       </main>
