@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --radius: 14px;
+}
+
+/* Base typography */
+html, body {
+  height: 100%;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+/* Reusable tokens mapped to Tailwind utilities in classes */
+.card {
+  @apply bg-card border border-line rounded-[var(--radius)] shadow-card p-4 md:p-5;
+}
+
+.badge {
+  @apply font-bold bg-card border border-line px-3 py-1.5 rounded-full text-muted;
+}
+
+.btn {
+  @apply inline-flex items-center gap-2 border border-line bg-card px-3.5 py-2.5 rounded-xl cursor-pointer transition-shadow;
+}
+.btn:hover { @apply shadow-md; }
+.btn.primary { @apply bg-accent border-accent text-white; }
+
+.pill { @apply inline-block text-sm px-2 py-0.5 rounded-full border border-line bg-white text-black; }
+.pill.smoke { @apply bg-indigo-50 border-indigo-200 text-indigo-800; }
+.pill.kitten { @apply bg-orange-50 border-orange-200 text-orange-800; }
+
+.table { @apply w-full border-collapse text-[0.95rem]; }
+.table thead th { @apply bg-gray-50 border-b border-line p-2.5 text-left font-bold; }
+.table td { @apply border-b border-line p-2.5 align-top; }
+
+.toc a { @apply px-2.5 py-2 rounded-lg bg-card border border-line text-muted hover:underline; }
+
+.alert { @apply border-l-8 border-warn bg-red-50; }
+.callout { @apply border border-dashed border-accent border-l-8 bg-blue-50; }
+
+.ok { color: theme('colors.ok'); }
+.warn { color: theme('colors.warn'); }
+
+.kbd { @apply font-mono bg-gray-100 border border-gray-200 px-1.5 rounded-md; }
+
+@media print {
+  header, nav.toc, .sticky-actions { display: none !important; }
+  body { background: #fff; }
+  .card { box-shadow: none; }
+}
+
