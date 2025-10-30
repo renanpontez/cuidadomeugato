@@ -168,7 +168,7 @@ FLUXO SALA
         </div >
         <div className="mx-auto max-w-[1100px] px-6 border-t border-solid border-line border-b
           pt-3 pb-3">
-          <div className="relative my-3 flex flex-row justify-between items-center ">
+          <div className="relative my-3 flex flex-col gap-4 md:gap-0 justify-between items-center md:flex-row ">
             <div className="inline-block">
               <button
                 className="btn"
