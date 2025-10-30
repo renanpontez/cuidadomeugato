@@ -19,6 +19,7 @@ export default function Page() {
   const [debouncedQuery, setDebouncedQuery] = useState('')
   const [showGreeting, setShowGreeting] = useState(false)
   const [greetingText, setGreetingText] = useState('')
+  const [checkedItems, setCheckedItems] = useState<Record<string, boolean>>({})
   const suggestions = useMemo(() => {
     const q = debouncedQuery.trim().toLowerCase()
     if (q.length < 3) return [] as string[]
@@ -29,6 +30,27 @@ export default function Page() {
     const t = setTimeout(() => setDebouncedQuery(query), 250)
     return () => clearTimeout(t)
   }, [query])
+
+  // Load checked items from localStorage
+  useEffect(() => {
+    const stored = localStorage.getItem('checkedItems')
+    if (stored) {
+      try {
+        setCheckedItems(JSON.parse(stored))
+      } catch (e) {
+        // ignore parse errors
+      }
+    }
+  }, [])
+
+  // Save checked items to localStorage
+  useEffect(() => {
+    localStorage.setItem('checkedItems', JSON.stringify(checkedItems))
+  }, [checkedItems])
+  const toggleChecked = useCallback((id: string) => {
+    setCheckedItems(prev => ({ ...prev, [id]: !prev[id] }))
+  }, [])
+
   const listToPlain = useCallback((id: string) => {
     const el = document.getElementById(id)
     if (!el) return ''
@@ -158,11 +180,11 @@ FLUXO SALA
       <header className="sticky top-0 z-50  bg-[rgba(250,250,250,.95)] backdrop-blur-md">
         <div className="flex items-center justify-center gap-4 px-6 py-3.5 ">
           <div>
-            <h1 className="m-0 text-[clamp(1.35rem,2.2vw,1.9rem)] mx-auto text-center font-semibold">Guia de Cuidados – Smoke 🐈‍⬛ & Picoto 🐾</h1>
+            <h1 className="m-0 text-[clamp(1.35rem,2.2vw,1.9rem)] mx-auto text-center font-semibold">Guia de Cuidados <br />Smoke 🐈‍⬛ & Picoto 🐾</h1>
             <p className="text-center">Valeu por cuidarem dos gatinhos! 🧡</p>
-            <div className="mt-2 flex flex-wrap gap-2 w-full">
-              <span className="badge">Período: 31/10 (qui) – 05/11 (ter) 00:00</span>
-              <span className="badge">Objetivo: segurança + rotina + <b>sem contato</b></span>
+            <div className="mt-2 flex flex-wrap gap-2 w-full justify-center">
+              <span className="badge text-center">Período: 31/10 (qui) – 05/11 (ter) 00:00</span>
+              <span className="badge text-center">Objetivo: segurança + rotina + <b>sem contato</b></span>
             </div>
           </div>
         </div >
@@ -190,6 +212,7 @@ FLUXO SALA
                     <a className="toc px-3 py-2 rounded-lg hover:bg-gray-50" href="#ambientes" onClick={() => setMenuOpen(false)}>Organização do apto</a>
                     <a className="toc px-3 py-2 rounded-lg hover:bg-gray-50" href="#dados-importantes" onClick={() => setMenuOpen(false)}>Dados importantes</a>
                     <a className="toc px-3 py-2 rounded-lg hover:bg-gray-50" href="#midia" onClick={() => setMenuOpen(false)}>Mídia</a>
+                    <a className="toc px-3 py-2 rounded-lg hover:bg-gray-50" href="#info-apto" onClick={() => setMenuOpen(false)}>Info do Apartamento</a>
                     <a className="toc px-3 py-2 rounded-lg hover:bg-gray-50" href="#gatim-info" onClick={() => setMenuOpen(false)}>Informações dos Gatim</a>
                     <a className="toc px-3 py-2 rounded-lg hover:bg-gray-50" href="#checklists" onClick={() => setMenuOpen(false)}>Checklists WhatsApp</a>
                     <button className="toc text-left px-3 py-2 rounded-lg hover:bg-gray-50" onClick={() => { setScheduleOpen(true); setMenuOpen(false) }}>Abrir cronograma</button>
@@ -290,6 +313,40 @@ FLUXO SALA
         </section>
 
 
+        {/* Informações do apartamento */}
+        <section id="info-apto" className="my-7">
+          <div className="card">
+            <h2 className="mb-2 text-xl font-semibold">🏠 Informações do Apartamento</h2>
+            <div className="grid gap-4 md:grid-cols-2">
+              <div>
+                <h3 className="mb-2 font-semibold">📍 Como chegar</h3>
+                <p className="text-muted">
+                  <b>Rua Hil de Moraes, 12</b><br />
+                  Informar na portaria: <b>apto 1812C</b> (liberado no Severino)<br />
+                  Pedir acesso informando <b>nome e sobrenome</b>
+                </p>
+              </div>
+              <div className="flex flex-col gap-4">
+                <div>
+
+                  <h3 className="mb-2 font-semibold">📶 WiFi</h3>
+                  <p className="text-muted">
+                    <b>WIFI RENAN 5G</b><br />
+                    Senha: <code className="kbd">naotemsenha</code>
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="mb-2 font-semibold">🔐 Senha da porta</h3>
+                  <p className="text-muted">
+                    <code className="kbd">2580*</code>
+                  </p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
 
         <section id="regras" className="my-7">
           <div className="card alert">
@@ -384,8 +441,8 @@ FLUXO SALA
             <h3 className="mb-2 text-lg font-semibold">🍽️ Alimentação do filhote</h3>
             <ol className="ml-5 list-decimal space-y-1">
               <li>Esquentar <b>½ xícara de água</b> por <b>1 min</b> (micro-ondas).</li>
-              <li>Pesar <b>7–8 g</b> de ração (balança branca).</li>
-              <li>Misturar até ficar <b>mole, mas não papada</b>; escorrer excesso.</li>
+              <li>Pesar <b>10g</b> de ração (balança branca).</li>
+              <li>Misturar até ficar <b>mole, mas não papada</b>; escorrer excesso de água.</li>
               <li>Servir no pratinho dele (ao lado do automático). Pode usar ração do automático para amolecer.</li>
               <li>Ele pode demorar — costuma voltar depois.</li>
             </ol>
@@ -393,7 +450,8 @@ FLUXO SALA
           <div className="card">
             <h2 className="mb-2 text-xl font-semibold">🧼 Limpeza & Segurança</h2>
             <ul className="ml-5 list-disc">
-              <li>Caixa do filhote: <b>escritório</b>. Caixa da Smoke: <b>banheiro social</b>.</li>
+              <li>Caixa do filhote: <b>escritório</b>.</li>
+              <li>Caixa da Smoke: <b>banheiro social</b>.</li>
               <li>Banheiro social: <b>porta travada aberta</b>.</li>
               <li>Depois de limpar o escritório: <b>devolver filhote</b> e <b>fechar bem</b> (trinco + alisar).</li>
             </ul>
@@ -415,7 +473,7 @@ FLUXO SALA
             <ul className="ml-5 list-disc">
               <li>Não comer, vômito, diarreia, apatia.</li>
               <li>Briga/arranhões ou tentativa de fuga.</li>
-              <li><b>Acionar</b> Renan/Andressa e, se preciso, levar ao veterinário.</li>
+              <li><b>Falar com <a href="https://wa.me/5585996284730" target="_blank" rel="noopener noreferrer" className="underline hover:no-underline">Renan/Andressa</a></b> e, se preciso, levar ao veterinário.</li>
             </ul>
           </div>
         </section>
@@ -433,7 +491,7 @@ FLUXO SALA
                 <tbody>
                   <tr><td>31/10 (qui)</td><td>Renan</td><td>Saída 15h</td><td>Organizar casa; revisar portas/travas; varanda fechada.</td></tr>
                   <tr><td>01/11 (sex)</td><td>Felipe</td><td>Tarde → noite</td><td>Brincar com filhote; alimentar; ventilação quando no ambiente; separar gatos; <b>fechar varanda ao sair</b>.</td></tr>
-                  <tr><td>02/11 (sáb)</td><td>Loira</td><td>08h–13h</td><td>Limpeza com protocolo (ver seção “Instruções por Pessoa”).</td></tr>
+                  <tr><td>02/11 (sáb)</td><td>Loira</td><td>08h–13h</td><td>Limpeza do apartamento e cuidado com o filhote.</td></tr>
                   <tr><td>02/11 (sáb)</td><td>Elma</td><td>16h–19h</td><td>Água/comida; brincar com filhote; conferir portas/varanda; <b>fechar varanda ao sair</b>.</td></tr>
                   <tr><td>03/11 (dom)</td><td>Titeco</td><td>10h–12h</td><td>Checar caixas; alimentar; brincar supervisionado; <b>fechar varanda ao sair</b>.</td></tr>
                   <tr><td>03/11 (dom)</td><td>Victória</td><td>Tarde</td><td>Visita extra; rotinas e portas; <b>fechar varanda ao sair</b>.</td></tr>
@@ -451,25 +509,64 @@ FLUXO SALA
         <section id="checklists" className="my-7 grid gap-4 md:grid-cols-2">
           <div className="card">
             <h2 className="mb-2 text-xl font-semibold">📝 Checklist rápido – Antes de sair do apartamento</h2>
-            <ul id="before-exit" className="ml-5 list-disc">
-              <li>Filhote no <b>escritório</b>; porta <b>bem fechada</b> (trinco + alisar).</li>
-              <li>Smoke com acesso ao banheiro social (porta travada aberta).</li>
-              <li><b>Varanda fechada.</b></li>
-              <li>Água fresca para ambos; comida conforme rotina.</li>
+            <ul id="before-exit" className="ml-1 list-none space-y-1">
+              {[
+                'Filhote no <b>escritório</b>; porta <b>bem fechada</b> (trinco + alisar).',
+                'Smoke com acesso ao banheiro social (porta travada aberta).',
+                '<b>Varanda fechada.</b>',
+                'Água fresca para ambos; comida conforme rotina.',
+              ].map((text, i) => {
+                const itemId = `before-exit-${i}`
+                return (
+                  <li key={i} className="flex items-start gap-2">
+                    <input
+                      type="checkbox"
+                      id={itemId}
+                      checked={checkedItems[itemId] || false}
+                      onChange={() => toggleChecked(itemId)}
+                      className="mt-1 h-4 w-4 cursor-pointer accent-accent"
+                    />
+                    <label
+                      htmlFor={itemId}
+                      className={`cursor-pointer flex-1 ${checkedItems[itemId] ? 'line-through text-muted' : ''}`}
+                      dangerouslySetInnerHTML={{ __html: text }}
+                    />
+                  </li>
+                )
+              })}
             </ul>
-            <button className="btn mt-2" onClick={() => copyList('before-exit')}>📋 Copiar</button>
           </div>
 
           <div className="card">
             <h2 className="mb-2 text-xl font-semibold">📝 Checklist rápido – Durante a visita</h2>
-            <ul id="during-visit" className="ml-5 list-disc">
-              <li>Conduzir Smoke ao quarto e fechar.</li>
-              <li>Fechar varanda e soltar filhote na sala (supervisão).</li>
-              <li>Brincar 20–30 min; preparar ração úmida; repor águas.</li>
-              <li>Devolver filhote ao escritório e fechar bem.</li>
-              <li>Reabrir quarto/varanda se ainda ficar no apto.</li>
+            <ul id="during-visit" className="ml-1 list-none space-y-1">
+              {[
+                'Conduzir Smoke ao quarto e fechar.',
+                'Fechar varanda e soltar filhote na sala (supervisão).',
+                'Brincar 20–30 min; preparar ração úmida; repor águas.',
+                'Devolver filhote ao escritório e fechar bem.',
+                'Reabrir quarto/varanda se ainda ficar no apto.',
+              ].map((text, i) => {
+                const itemId = `during-visit-${i}`
+                return (
+                  <li key={i} className="flex items-start gap-2">
+                    <input
+                      type="checkbox"
+                      id={itemId}
+                      checked={checkedItems[itemId] || false}
+                      onChange={() => toggleChecked(itemId)}
+                      className="mt-1 h-4 w-4 cursor-pointer accent-accent"
+                    />
+                    <label
+                      htmlFor={itemId}
+                      className={`cursor-pointer flex-1 ${checkedItems[itemId] ? 'line-through text-muted' : ''}`}
+                    >
+                      {text}
+                    </label>
+                  </li>
+                )
+              })}
             </ul>
-            <button className="btn mt-2" onClick={() => copyList('during-visit')}>📋 Copiar</button>
           </div>
         </section>
 
@@ -514,6 +611,7 @@ FLUXO SALA
           </div>
         </section>
 
+
         <hr />
         {/* Informações gerais dos gatinhos */}
         <section id="gatim-info" className="my-7 grid gap-4 md:grid-cols-2">
@@ -543,7 +641,7 @@ FLUXO SALA
       </div>
 
       <footer className="mx-auto max-w-[1100px] px-6 py-8 text-sm text-muted">
-        <p>Emergências: falar com Renan ou Andressa. Em sinais clínicos (apatia, diarreia, vômito, recusa alimentar), acionar veterinário.</p>
+        <p>Emergências: falar com <a href="https://wa.me/5585996284730" target="_blank" rel="noopener noreferrer" className="text-accent underline hover:no-underline">Renan ou Andressa</a>. Em sinais clínicos (apatia, diarreia, vômito, recusa alimentar), acionar veterinário.</p>
       </footer>
     </>
   )
